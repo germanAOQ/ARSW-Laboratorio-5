@@ -122,8 +122,12 @@ public ResponseEntity<?> updateCinemaByName(@PathVariable String name, @RequestB
 	return new ResponseEntity<>(HttpStatus.CREATED);
 }
 
-
+@GetMapping("/")
+public String index() {
+	return "index.html";
+}
 
 
 
 }
+

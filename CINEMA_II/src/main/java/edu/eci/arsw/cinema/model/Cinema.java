@@ -11,6 +11,7 @@ import java.util.List;
  *
  * @author cristian
  */
+
 public class Cinema {
     private String name;
     private List<CinemaFunction> functions; 
