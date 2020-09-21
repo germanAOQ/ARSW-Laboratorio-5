@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>  
     <title>Cinema bookings</title>
@@ -21,7 +21,7 @@
 			<label for="input">Cinema</label>
 			<input type="text" id="input" placeholder="Name">
 			<input type="date" id="date" placeholder="Date">
-			<button type="submit" id="getFunctions">
+			<button type="submit" id="getFunctions" onclick="app.getFunctionsByCinemaAndDate()">
 			Get Functions
 			</button>
 		<div class="row">
@@ -36,13 +36,14 @@
 		<div class="row">
 			<div class="col-md-6">
 				<table style="width:100%" id="table" class="table">
+					<thead>
 					<tr>
 						<th>Name</th>
 						<th>Genre</th>
 						<th>Hour</th>
 						<th>Availability</th>
 					</tr>
-					<tbody id="cuerpo"></tbody>
+					</thead>
 				</table>
 			</div>
 			
