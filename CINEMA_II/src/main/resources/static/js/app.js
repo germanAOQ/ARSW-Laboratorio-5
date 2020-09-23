@@ -13,6 +13,26 @@ var app = (function () {
 		_fechaSeleccionada = nuevaFecha;
 	};
 	
+	/*
+	function getFunctionsByCinema(){
+		_cineSeleccionado = $("#input").val();
+		listaFunciones;
+		apimock.getFunctionsByCinema(_cineSeleccionado, function(funcion){
+			listaFunciones = funcion.functions;
+		});
+		for(int i=0; i<listaFunciones.length; i++){
+			movieName = listaFunciones[i].movie.name;
+            gender = listaFunciones[i].movie.genre;
+            hour = listaFunciones[i].date.substring(11, 16);
+			disponibilidad = isDisponible(listaFunciones[i].seats);
+			var row = '<tr><td>' + movieName + '</td><td>' + gender + '</td><td>' + hour + '</td><td>' + disponibilidad +'</tr>';
+			$("#table").append(row);
+		}
+		
+		
+		
+	}
+	*/
 	
 	function getFunctionsByCinemaAndDate() {
           _cineSeleccionado = $("#input").val();
@@ -22,21 +42,38 @@ var app = (function () {
 	
 	
 	function convertElementsToObject(functions) {
-		var movieName;
-		var gender;
-		var hour;
-		
-          var mapFunctions = functions.map(
-          function (functions) {
-              movieName = functions.movie.name;
-              gender = functions.movie.gender;
-              hour = functions.date.substring(11, 16);
-          })
-		  $("#cinemaSeleccionado").text(_cineSeleccionado);
-		  var row = '<tr><td>' + movieName + '</td><td>' + gender + '</td><td>' + hour + '</td><td>' + "true" +'</tr>';
-          $("#table").append(row);
+		$("table").find("tr:gt(0)").remove();
+		$("#cinemaSeleccionado").text(_cineSeleccionado);
+        var mapFunctions = functions.map(
+          function (f) {
+              f.movie.name;
+              f.movie.genre;
+              f.date.substring(11, 16);
+			  f.seats;
+			 
+          });
+		  for(var i=0; i<functions.length; i++){
+			console.log(functions[i])
+			movieName = functions[i].movie.name;
+            gender = functions[i].movie.genre;
+            hour = functions[i].date.substring(11, 16);
+			disponibilidad = isDisponible(functions[i].seats);
+			var row = '<tr><td>' + movieName + '</td><td>' + gender + '</td><td>' + hour + '</td><td>' + true +'</tr>';
+			$("#table").append(row);
+		}
+		  
+
       }
 	  
+	function isDisponible(alist){
+		var n = false;
+		for(i = 0; i < alist.length; i++){
+			n = n || alist[i].includes(true);
+		}		
+		return n;
+	}		
+	
+	
 	function updateTable(mapFunctions) {
 
           $("#cinemaSeleccionado").text(_cineSeleccionado);
