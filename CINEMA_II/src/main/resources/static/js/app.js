@@ -38,8 +38,55 @@ var app = (function () {
           _cineSeleccionado = $("#input").val();
           _fechaSeleccionada = $("#date").val();
           apimock.getFunctionsByCinemaAndDate(_cineSeleccionado, _fechaSeleccionada, convertElementsToObject);
+		  apimock.getFunctionsByCinemaAndDate(_cineSeleccionado, _fechaSeleccionada, dibujarSala);
       }
 	
+	function dibujarSala(functions){
+		var mapFunctions = functions.map(
+          function (f) {
+              f.movie.name;
+              f.movie.genre;
+              f.date.substring(11, 16);
+			  f.seats;
+			 
+          });
+		var asientos =  functions[0].seats;
+		var c = document.getElementById("myCanvas");
+		var ctx = c.getContext("2d");
+		console.log(asientos);
+		var column = 10;
+		for(var i = 0; i < asientos.length; i++){
+			var row = 10;
+			for(var j = 0; j < asientos[i].length; j++){
+				if(asientos[i][j] == true){
+					ctx.fillStyle = "#0043B2";
+					ctx.fillRect(row, column, 30, 30);
+				}else{
+					ctx.fillStyle = "#0043B2";
+					ctx.fillRect(row, column, 30, 30);
+				}
+				row = row+40;
+			}
+			column = column+40;
+		}
+		
+		$("#sillas").text(conteoSillasLibres(asientos));
+	}
+	
+	
+	
+	
+	function conteoSillasLibres(functions){
+		var cont = 0;
+		for(var i = 0; i < functions.length; i++){
+			for(var j = 0; j < functions[i].length; j++){
+				if(functions[i][j] == true){
+					cont++;
+				}
+			}
+		}
+		return cont;
+	}
 	
 	function convertElementsToObject(functions) {
 		$("table").find("tr:gt(0)").remove();
@@ -53,7 +100,6 @@ var app = (function () {
 			 
           });
 		  for(var i=0; i<functions.length; i++){
-			console.log(functions[i])
 			movieName = functions[i].movie.name;
             gender = functions[i].movie.genre;
             hour = functions[i].date.substring(11, 16);
