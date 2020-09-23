@@ -13,6 +13,8 @@ var app = (function () {
 		_fechaSeleccionada = nuevaFecha;
 	};
 	
+	var _peliculaSeleccionada;
+	
 	/*
 	function getFunctionsByCinema(){
 		_cineSeleccionado = $("#input").val();
@@ -38,10 +40,11 @@ var app = (function () {
           _cineSeleccionado = $("#input").val();
           _fechaSeleccionada = $("#date").val();
           apimock.getFunctionsByCinemaAndDate(_cineSeleccionado, _fechaSeleccionada, convertElementsToObject);
-		  apimock.getFunctionsByCinemaAndDate(_cineSeleccionado, _fechaSeleccionada, dibujarSala);
+		  
       }
 	
 	function dibujarSala(functions){
+		
 		var mapFunctions = functions.map(
           function (f) {
               f.movie.name;
@@ -50,7 +53,9 @@ var app = (function () {
 			  f.seats;
 			 
           });
-		var asientos =  functions[0].seats;
+		var funcion =  functions.filter(funct => funct.movie.name == _peliculaSeleccionada);
+		var asientos = funcion[0].seats;
+		console.log(asientos);
 		var c = document.getElementById("myCanvas");
 		var ctx = c.getContext("2d");
 		console.log(asientos);
@@ -88,6 +93,14 @@ var app = (function () {
 		return cont;
 	}
 	
+	function asignarPelicula (functions){
+		_peliculaSeleccionada = functions;
+	}
+	
+	function redibujarSala () {
+		apimock.getFunctionsByCinemaAndDate(_cineSeleccionado, _fechaSeleccionada, dibujarSala);
+	}
+	
 	function convertElementsToObject(functions) {
 		$("table").find("tr:gt(0)").remove();
 		$("#cinemaSeleccionado").text(_cineSeleccionado);
@@ -104,7 +117,7 @@ var app = (function () {
             gender = functions[i].movie.genre;
             hour = functions[i].date.substring(11, 16);
 			disponibilidad = isDisponible(functions[i].seats);
-			var row = '<tr><td>' + movieName + '</td><td>' + gender + '</td><td>' + hour + '</td><td>' + true +'</tr>';
+			var row = '<tr><td>' + movieName + '</td><td>' + gender + '</td><td>' + hour + '</td><td>' + true +'</td><td>'+"<button type='button' class='btn btn-primary'onclick='app.asignarPelicula( \""+  movieName + "\"); app.redibujarSala();' > "+'</td><td>'+'</tr>';
 			$("#table").append(row);
 		}
 		  
@@ -135,6 +148,8 @@ var app = (function () {
 	return {
 		cambiarNombreCinema: cambiarNombreCinema,
 		cambiarFecha: cambiarFecha,
-		getFunctionsByCinemaAndDate: getFunctionsByCinemaAndDate
+		getFunctionsByCinemaAndDate: getFunctionsByCinemaAndDate,
+		asignarPelicula: asignarPelicula,
+		redibujarSala: redibujarSala
 	};
 })();
