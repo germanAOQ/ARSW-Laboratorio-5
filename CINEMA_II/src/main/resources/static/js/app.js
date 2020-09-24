@@ -5,8 +5,6 @@ var app = (function () {
 	
 	var _listaFunciones = [];
 	
-	var apiu = "js/apimock.js";
-	
 	var cambiarNombreCinema = function (){
 		_cineSeleccionado = nuevoNombre;
 	};
@@ -41,10 +39,7 @@ var app = (function () {
 	function getFunctionsByCinemaAndDate() {
           _cineSeleccionado = $("#input").val();
           _fechaSeleccionada = $("#date").val();
-		  $.getScript(apiu, function(){
-           apimock.getFunctionsByCinemaAndDate(_cineSeleccionado, _fechaSeleccionada, convertElementsToObject);
-        });
-          
+          apimock.getFunctionsByCinemaAndDate(_cineSeleccionado, _fechaSeleccionada, convertElementsToObject);
 		  
       }
 	
@@ -64,26 +59,16 @@ var app = (function () {
 		var c = document.getElementById("myCanvas");
 		var ctx = c.getContext("2d");
 		console.log(asientos);
-		ctx.fillStyle = "#8D792C";
-		ctx.fillRect(30, 10, 450, 30);
-		
-		var column = 10;	
+		var column = 10;
 		for(var i = 0; i < asientos.length; i++){
 			var row = 10;
-			var add = 0;
 			for(var j = 0; j < asientos[i].length; j++){
-				if (j==2 ||  j==10){
-					add+=20;
-				}
-				else{
-					add+=0;
-				}
 				if(asientos[i][j] == true){
 					ctx.fillStyle = "#0043B2";
-					ctx.fillRect(row+5+add, column+100, 30, 30);
+					ctx.fillRect(row, column, 30, 30);
 				}else{
-					ctx.fillStyle = "#FF0000";
-					ctx.fillRect(row+5+add, column+100, 30, 30);
+					ctx.fillStyle = "#0043B2";
+					ctx.fillRect(row, column, 30, 30);
 				}
 				row = row+40;
 			}
@@ -119,8 +104,6 @@ var app = (function () {
 	function convertElementsToObject(functions) {
 		$("table").find("tr:gt(0)").remove();
 		$("#cinemaSeleccionado").text(_cineSeleccionado);
-		$("#movieName").text("Availability of: ");
-        
         var mapFunctions = functions.map(
           function (f) {
               f.movie.name;
