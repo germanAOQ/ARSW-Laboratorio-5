@@ -1,4 +1,4 @@
-apiclient = (function () {
+api = (function () {
 	const Url = 'http://localhost:8080/cinemas/';
     return {
         getFunctionsByCinema: function (name, callback) {

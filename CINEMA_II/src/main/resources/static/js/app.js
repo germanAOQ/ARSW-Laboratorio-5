@@ -5,7 +5,8 @@ var app = (function () {
 	
 	var _listaFunciones = [];
 	
-	var apiu = "apiclient.js";
+	//Cambiar por apimock para usar los datos propios de esta
+	var apiu = "js/apimock.js";
 	
 	var cambiarNombreCinema = function (){
 		_cineSeleccionado = nuevoNombre;
@@ -41,9 +42,10 @@ var app = (function () {
 	function getFunctionsByCinemaAndDate() {
           _cineSeleccionado = $("#input").val();
           _fechaSeleccionada = $("#date").val();
-		  //$.getScript(apiu, function(){
-           apiclient.getFunctionsByCinemaAndDate(_cineSeleccionado, _fechaSeleccionada, convertElementsToObject);
-        //});
+		  
+           $.getScript(apiu, function(){
+           api.getFunctionsByCinemaAndDate(_cineSeleccionado, _fechaSeleccionada, convertElementsToObject);
+        });
           
 		  
       }
@@ -113,7 +115,9 @@ var app = (function () {
 	}
 	
 	function redibujarSala () {
-		apiclient.getFunctionsByCinemaAndDate(_cineSeleccionado, _fechaSeleccionada, dibujarSala);
+		$.getScript(apiu, function(){
+           api.getFunctionsByCinemaAndDate(_cineSeleccionado, _fechaSeleccionada, dibujarSala);
+        });
 	}
 	
 	function convertElementsToObject(functions) {
