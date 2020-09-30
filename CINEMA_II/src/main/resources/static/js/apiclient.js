@@ -1,27 +1,16 @@
-const Url = 'http://localhost:8080/cinemas/';
 apiclient = (function () {
-    var f=[]
+	const Url = 'http://localhost:8080/cinemas/';
     return {
         getFunctionsByCinema: function (name, callback) {
-                $.get(Url+name,function(data){
-                    f=data;
-                });
-                return callback(f)
-        }
+				$.getJSON("http://localhost:8080/cinemas/" + name, function (data) {
+					callback(data);
+				});
+                
+        },
 		getFunctionsByCinemaAndDate: function (name, date, callback) {
-                $.get(Url+name+date,function(data){
-                    g=data;
-                });
-                return callback(g)
+				$.getJSON("http://localhost:8080/cinemas/" + name +"/"+ date, function (data) {
+					callback(data);
+				});
         }
-		deleteFunction: function (funcion,date,callback)
-		createFunction: function (funcion,date,callback){
-			return $.ajax({
-				url: "/mirecurso",
-				type: 'PUT',
-				data: '{"prop1":1000,"prop2":"papas"}',
-				contentType: "application/json"
-			});
-		}
     };
 })();

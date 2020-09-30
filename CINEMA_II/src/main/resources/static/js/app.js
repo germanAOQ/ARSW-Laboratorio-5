@@ -5,7 +5,7 @@ var app = (function () {
 	
 	var _listaFunciones = [];
 	
-	var apiu = "js/apiclient.js";
+	var apiu = "apiclient.js";
 	
 	var cambiarNombreCinema = function (){
 		_cineSeleccionado = nuevoNombre;
@@ -41,9 +41,9 @@ var app = (function () {
 	function getFunctionsByCinemaAndDate() {
           _cineSeleccionado = $("#input").val();
           _fechaSeleccionada = $("#date").val();
-		  $.getScript(apiu, function(){
+		  //$.getScript(apiu, function(){
            apiclient.getFunctionsByCinemaAndDate(_cineSeleccionado, _fechaSeleccionada, convertElementsToObject);
-        });
+        //});
           
 		  
       }
